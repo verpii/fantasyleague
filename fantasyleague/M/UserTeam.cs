@@ -7,15 +7,20 @@ using System.Threading.Tasks;
 
 namespace fantasyleague.M
 {
-    public partial class User : ObservableObject
+    public partial class UserTeam : ObservableObject
     {
         [ObservableProperty]
         string username;
+
         [ObservableProperty]
         string userid;
+
         [ObservableProperty]
         int budget;
+
         [ObservableProperty]
         List<Player> roster = new List<Player>();
+
+
     }
 }

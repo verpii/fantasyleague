@@ -29,10 +29,17 @@ namespace fantasyleague.M
         PlayerRole role;
 
         [ObservableProperty]
-        int price;
+        int sellingprice;
+
+        [ObservableProperty]
+        int buyingprice;
 
         [ObservableProperty]
         string team;
+
+        [ObservableProperty]
+        string imageurl;
+
 
     }
 }
