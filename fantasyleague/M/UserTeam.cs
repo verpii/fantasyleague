@@ -4,11 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SQLite;
+using System.Text.Json;
 
 namespace fantasyleague.M
 {
+
     public partial class UserTeam : ObservableObject
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+
         [ObservableProperty]
         string username;
 
@@ -19,7 +25,21 @@ namespace fantasyleague.M
         int budget;
 
         [ObservableProperty]
-        List<Player> roster = new List<Player>();
+        string teamName;
+
+        [ObservableProperty]
+        int playerid;
+
+
+
+        //[ObservableProperty]
+        //string rosterJson = "[]";
+
+        //public List<Player> Roster
+        //{
+        //    get => JsonSerializer.Deserialize<List<Player>>(RosterJson) ?? new List<Player>();
+        //    set => RosterJson = JsonSerializer.Serialize(value);    
+        //}
 
 
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SQLite;
 
 namespace fantasyleague.M
 {
@@ -16,11 +17,15 @@ namespace fantasyleague.M
         Support
 
     }
+    
     public partial class Player : ObservableObject
     {
 
         [ObservableProperty]
         string irlName;
+
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
 
         [ObservableProperty]
         string ign;
@@ -39,6 +44,9 @@ namespace fantasyleague.M
 
         [ObservableProperty]
         string imageurl;
+
+        [ObservableProperty]
+        int currentPoints;
 
 
     }

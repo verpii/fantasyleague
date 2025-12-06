@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="fantasyleague.V.MyTeamPage"
+             xmlns:vm="clr-namespace:fantasyleague.VM"
+             xmlns:m="clr-namespace:fantasyleague.M"
+             x:DataType="vm:MyTeamViewModel"
+             Title="Csapatösszeállítás (Roster)">
+
+  
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="20">
+
+            <Frame BackgroundColor="#1E90FF" Padding="15" CornerRadius="10" HasShadow="True">
+                <VerticalStackLayout>
+                    <Label Text="{Binding TeamName}" 
+                           FontSize="Title" 
+                           TextColor="White" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center" />
+
+                    <Grid ColumnDefinitions="*, *" Margin="0, 10, 0, 0">
+                        <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+                            <Label Text="Heti Pontszám:" TextColor="White" FontAttributes="Bold"/>
+                            <Label Text="{Binding TotalWeeklyScore}" 
+                                   FontSize="Large" 
+                                   TextColor="#FFD700" 
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                            <Label Text="Költségvetés:" TextColor="White" FontAttributes="Bold"/>
+                            <Label Text="{Binding CurrentUserTeam.Budget, StringFormat='{0} 💰'}" 
+                                   FontSize="Large" 
+                                   TextColor="#90EE90" 
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Label Text="Leigazolt Játékosok Áttekintése" 
+                   FontSize="Large" 
+                   FontAttributes="Bold" 
+                   Margin="0, 10, 0, 0"/>
+
+            <CollectionView ItemsSource="{Binding RosterPlayers}">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout Padding="20" HorizontalOptions="Center">
+                        <Label Text="Nincs még összeállított csapatod. 😢" FontAttributes="Italic" TextColor="Gray"/>
+                        <Label Text="Irány a Market a leigazolásokhoz!" TextColor="#1E90FF" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:Player">
+
+                        <Frame Padding="10" CornerRadius="8" HasShadow="True">
+                            <Grid ColumnDefinitions="60, *, 90, 90">
+
+                                <Label Grid.Column="0" 
+                                       Text="{Binding Role}" 
+                                       FontSize="Medium" 
+                                       FontAttributes="Bold" 
+                                       TextColor="#1E90FF"
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Center" />
+
+                                <VerticalStackLayout Grid.Column="1" Padding="5, 0" VerticalOptions="Center">
+                                    <Label Text="{Binding Ign}" FontSize="Medium" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Team}" FontSize="Small" TextColor="Gray"/>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Label Text="Eladási Ár" FontSize="Small" TextColor="Gray"/>
+                                    <Label Text="{Binding Sellingprice, StringFormat='{0} 💰'}" 
+                                           FontSize="Medium" 
+                                           FontAttributes="Bold" 
+                                           TextColor="#B22222"/>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Label Text="Heti Pont" FontSize="Small" TextColor="Gray"/>
+                                    <Label Text="{Binding CurrentPoints}" 
+                                           FontSize="Medium" 
+                                           FontAttributes="Bold"
+                                           TextColor="#FF8C00"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
