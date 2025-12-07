@@ -50,8 +50,9 @@ namespace fantasyleague.VM
             FilteredPlayers = new ObservableCollection<Player>();
             UserTeamPlayers = new ObservableCollection<Player>();
             
-            LoadUserTeam();
+            
             LoadPlayersAsync();
+            LoadUserTeam();
         }
 
 
@@ -199,6 +200,14 @@ namespace fantasyleague.VM
             }
             var sameTeam = UserTeamPlayers.Count(p => p.Team == newPlayer.Team);
 
+
+            var roleexist = UserTeamPlayers.Any(p => p.Role == newPlayer.Role);
+            if (roleexist)
+            {
+                WeakReferenceMessenger.Default.Send($"You already have a {newPlayer.Role} in your team.");
+                return false;
+            }
+
             if (sameTeam >= 2)
             {
                 WeakReferenceMessenger.Default.Send("Max 2 player from same team.");
@@ -211,12 +220,8 @@ namespace fantasyleague.VM
                 return false;
             }
 
-            var roleexist = UserTeamPlayers.Any(p => p.Role == newPlayer.Role);
-            if (roleexist)
-            {
-                WeakReferenceMessenger.Default.Send($"You already have a {newPlayer.Role} in your team.");
-                return false;
-            }
+            
+           
 
 
             return true;
