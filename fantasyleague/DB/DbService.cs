@@ -47,28 +47,40 @@ namespace fantasyleague.DB
         {
             xd++;
 
-          //  var existingPlayers = await _db.Table<Player>().CountAsync();
-           // if (existingPlayers == 0)
-          
+            //var User = new UserTeam
+            //{
+            //    Username = "Player1",
+            //    Userid = "1",
+            //    Budget = 1000,
+            //    TeamName = "My Fantasy Team",
+            //    RosterString = "[]"
+            //};
+
+            //await _db.InsertAsync(User);
+
+
+            //  var existingPlayers = await _db.Table<Player>().CountAsync();
+            // if (existingPlayers == 0)
+
 
             //if(true)
             //{
-                //var players = new List<Player>
-                //{
-                //    new Player { Ign = "BrokenBlade", IrlName = "Sergen Çelik", Team = "G2 Esports", Role = PlayerRole.Top, Buyingprice = 280, Sellingprice = 250, Imageurl = "g2_brokenblade.jpg" },
-                //    new Player { Ign = "Yike", IrlName = "Martin Sundelin", Team = "G2 Esports", Role = PlayerRole.Jungle, Buyingprice = 270, Sellingprice = 240, Imageurl = "g2_yike.jpg" },
-                //    new Player { Ign = "Caps", IrlName = "Rasmus Winther", Team = "G2 Esports", Role = PlayerRole.Mid, Buyingprice = 320, Sellingprice = 290, Imageurl = "g2_caps.jpg" },
-                //    new Player { Ign = "Hans Sama", IrlName = "Steven Liv", Team = "G2 Esports", Role = PlayerRole.Adc, Buyingprice = 300, Sellingprice = 270, Imageurl = "g2_hanssama.jpg" },
-                //    new Player { Ign = "Mikyx", IrlName = "Mihael Mehle", Team = "G2 Esports", Role = PlayerRole.Support, Buyingprice = 260, Sellingprice = 230, Imageurl = "g2_mikyx.jpg" },
+            //var players = new List<Player>
+            //{
+            //    new Player { Ign = "BrokenBlade", IrlName = "Sergen Çelik", Team = "G2 Esports", Role = PlayerRole.Top, Buyingprice = 280, Sellingprice = 250, Imageurl = "g2_brokenblade.jpg" },
+            //    new Player { Ign = "Yike", IrlName = "Martin Sundelin", Team = "G2 Esports", Role = PlayerRole.Jungle, Buyingprice = 270, Sellingprice = 240, Imageurl = "g2_yike.jpg" },
+            //    new Player { Ign = "Caps", IrlName = "Rasmus Winther", Team = "G2 Esports", Role = PlayerRole.Mid, Buyingprice = 320, Sellingprice = 290, Imageurl = "g2_caps.jpg" },
+            //    new Player { Ign = "Hans Sama", IrlName = "Steven Liv", Team = "G2 Esports", Role = PlayerRole.Adc, Buyingprice = 300, Sellingprice = 270, Imageurl = "g2_hanssama.jpg" },
+            //    new Player { Ign = "Mikyx", IrlName = "Mihael Mehle", Team = "G2 Esports", Role = PlayerRole.Support, Buyingprice = 260, Sellingprice = 230, Imageurl = "g2_mikyx.jpg" },
 
-                //    new Player { Ign = "Oscarinin", IrlName = "Óscar Muñoz", Team = "Fnatic", Role = PlayerRole.Top, Buyingprice = 220, Sellingprice = 190, Imageurl = "fnc_oscarinin.jpg" },
-                //    new Player { Ign = "Razork", IrlName = "Iván Díaz", Team = "Fnatic", Role = PlayerRole.Jungle, Buyingprice = 240, Sellingprice = 210, Imageurl = "fnc_razork.jpg" },
-                //    new Player { Ign = "Humanoid", IrlName = "Marek Brázda", Team = "Fnatic", Role = PlayerRole.Mid, Buyingprice = 290, Sellingprice = 260, Imageurl = "fnc_humanoid.jpg" },
-                //    new Player { Ign = "Noah", IrlName = "Oh Hyeon-taek", Team = "Fnatic", Role = PlayerRole.Adc, Buyingprice = 230, Sellingprice = 200, Imageurl = "fnc_noah.jpg" },
-                //    new Player { Ign = "Jun", IrlName = "Yoon Se-jun", Team = "Fnatic", Role = PlayerRole.Support, Buyingprice = 210, Sellingprice = 180, Imageurl = "fnc_jun.jpg" },
-                //};
+            //    new Player { Ign = "Oscarinin", IrlName = "Óscar Muñoz", Team = "Fnatic", Role = PlayerRole.Top, Buyingprice = 220, Sellingprice = 190, Imageurl = "fnc_oscarinin.jpg" },
+            //    new Player { Ign = "Razork", IrlName = "Iván Díaz", Team = "Fnatic", Role = PlayerRole.Jungle, Buyingprice = 240, Sellingprice = 210, Imageurl = "fnc_razork.jpg" },
+            //    new Player { Ign = "Humanoid", IrlName = "Marek Brázda", Team = "Fnatic", Role = PlayerRole.Mid, Buyingprice = 290, Sellingprice = 260, Imageurl = "fnc_humanoid.jpg" },
+            //    new Player { Ign = "Noah", IrlName = "Oh Hyeon-taek", Team = "Fnatic", Role = PlayerRole.Adc, Buyingprice = 230, Sellingprice = 200, Imageurl = "fnc_noah.jpg" },
+            //    new Player { Ign = "Jun", IrlName = "Yoon Se-jun", Team = "Fnatic", Role = PlayerRole.Support, Buyingprice = 210, Sellingprice = 180, Imageurl = "fnc_jun.jpg" },
+            //};
 
-                //await _db.InsertAllAsync(players);
+            //await _db.InsertAllAsync(players);
 
             //    var player = new Player { Ign = "Y", IrlName = "What", Team = "G2", Role = PlayerRole.Top, Buyingprice = 200, Sellingprice = 200, Imageurl = "kep.jpg" };
             //    await _db.InsertAsync(player);
@@ -104,6 +116,13 @@ namespace fantasyleague.DB
         {
             return _db.Table<Player>()
                       .Where(i => i.Id == id)
+                      .FirstOrDefaultAsync();
+        }
+
+        public Task<Player> GetPlayerByIgnAsync(string Ign)
+        {
+            return _db.Table<Player>()
+                      .Where(i => i.Ign == Ign)
                       .FirstOrDefaultAsync();
         }
 
@@ -154,7 +173,7 @@ namespace fantasyleague.DB
         public async Task<UserTeam> GetUserTeamAsync()
         {
             return await _db.Table<UserTeam>().FirstOrDefaultAsync()
-                   ?? new UserTeam { Budget = 1000 }; //, RosterJson = "[]"
+                   ?? new UserTeam { Budget = 1000 }; 
         }
 
         public async Task SaveUserTeamAsync(UserTeam userTeam)
@@ -162,6 +181,11 @@ namespace fantasyleague.DB
             await _db.InsertOrReplaceAsync(userTeam);
         }
 
+
+        public async Task UpdateUserTeamAsync(UserTeam userteam)
+        {
+            await _db.UpdateAsync(userteam);
+        }
 
 
 

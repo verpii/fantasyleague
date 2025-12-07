@@ -1,37 +1,118 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using __XamlGeneratedCode__;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using fantasyleague.DB;
 using fantasyleague.M;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+//using static CoreFoundation.DispatchSource;
 
 namespace fantasyleague.VM
 {
-    public partial class MyTeamViewModel : ObservableObject
+    public partial class MyTeamPageViewModel : ObservableObject
     {
-        private readonly TeamViewModel _teamViewModel;
 
-        public MyTeamViewModel(TeamViewModel teamViewModel)
+        private readonly IDbService _dbService;
+
+
+        public MyTeamPageViewModel(IDbService db)
         {
+            _dbService = db;
+            PlayersInTeam = new ObservableCollection<Player>();
 
-            _teamViewModel = teamViewModel;
+            LoadUserTeam();
+        }
+        
+        public ObservableCollection<Player> PlayersInTeam { get; set; }
+
+        [ObservableProperty]
+        private UserTeam _userteam;
+
+
+        [ObservableProperty]
+        Player selectedPlayer;
+
+        [ObservableProperty]
+        private UserTeam refreshUserteam;
+
+        async partial void OnUserteamChanged(UserTeam value)
+        {
+            RefreshUserteam = value;
         }
 
-       
-        public UserTeam CurrentUserTeam => _teamViewModel.UserTeam;
+        public async Task LoadUserTeam()
+        {
+            Userteam = await _dbService.GetUserTeamAsync();
+            PlayersInTeam.Clear();
 
-        public List<Player> RosterPlayers => new List<Player>();
+            if (!string.IsNullOrEmpty(Userteam.RosterString))
+            {
 
-        public string TeamName => CurrentUserTeam?.TeamName ?? "Saját Csapat";
+                Userteam.RosterString.Split(',').ToList().ForEach(i =>
+                {
+                    Task<Player> n = _dbService.GetPlayerByIgnAsync(i);
+                    PlayersInTeam.Add(n.Result);
+                });
+            }
+        }
+        //[RelayCommand]
+        //public void RefreshData()
+        //{
+        //    OnPropertyChanged(_userteam.TeamName);
+        //    OnPropertyChanged(nameof(_userteam.CurrentPoints));
+        //    OnPropertyChanged(nameof(_userteam.Budget));
+        //}
 
-        public int TotalWeeklyScore => RosterPlayers.Sum(p => p.CurrentPoints);
 
         [RelayCommand]
-        public void RefreshData()
+        public async Task NavigateToMarketAsync()
         {
-            OnPropertyChanged(nameof(TeamName));
-            OnPropertyChanged(nameof(RosterPlayers));
-            OnPropertyChanged(nameof(TotalWeeklyScore));
-            OnPropertyChanged(nameof(CurrentUserTeam));
+            await Shell.Current.GoToAsync("market");
         }
+
+
+        [RelayCommand]
+        public async Task DeletePlayer()
+        {
+            if(SelectedPlayer != null)
+            {
+                Userteam.Budget += SelectedPlayer.Sellingprice;
+
+                PlayersInTeam.Remove(SelectedPlayer);
+
+                string newteam = "";
+                int count = 0;
+
+                foreach (var player in PlayersInTeam)
+                {
+                   
+                    if (count == 0)
+                    {
+                        newteam = newteam + player.Ign;
+                        count++;
+                    }
+                    else
+                    {
+                        newteam = newteam + $",{player.Ign}";
+                    }
+
+                        
+                }
+
+                Userteam.RosterString = newteam;
+
+                _dbService.UpdateUserTeamAsync(Userteam);
+
+
+
+            }
+
+
+        }
+
+
     }
 }

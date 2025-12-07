@@ -4,17 +4,22 @@
              x:Class="fantasyleague.V.MyTeamPage"
              xmlns:vm="clr-namespace:fantasyleague.VM"
              xmlns:m="clr-namespace:fantasyleague.M"
-             x:DataType="vm:MyTeamViewModel"
-             Title="Csapatösszeállítás (Roster)">
+             x:DataType="vm:MyTeamPageViewModel"
+             Title="Csapatösszeállítás (Roster)"
+             Loaded="MainPage_OnLoaded">
+
+   
+  
 
   
 
     <ScrollView>
+       
         <VerticalStackLayout Spacing="15" Padding="20">
 
             <Frame BackgroundColor="#1E90FF" Padding="15" CornerRadius="10" HasShadow="True">
                 <VerticalStackLayout>
-                    <Label Text="{Binding TeamName}" 
+                    <Label Text="{Binding RefreshUserteam.TeamName}" 
                            FontSize="Title" 
                            TextColor="White" 
                            FontAttributes="Bold" 
@@ -23,7 +28,7 @@
                     <Grid ColumnDefinitions="*, *" Margin="0, 10, 0, 0">
                         <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
                             <Label Text="Heti Pontszám:" TextColor="White" FontAttributes="Bold"/>
-                            <Label Text="{Binding TotalWeeklyScore}" 
+                            <Label Text="{Binding RefreshUserteam.CurrentPoints}" 
                                    FontSize="Large" 
                                    TextColor="#FFD700" 
                                    FontAttributes="Bold"/>
@@ -31,7 +36,7 @@
 
                         <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
                             <Label Text="Költségvetés:" TextColor="White" FontAttributes="Bold"/>
-                            <Label Text="{Binding CurrentUserTeam.Budget, StringFormat='{0} 💰'}" 
+                            <Label Text="{Binding RefreshUserteam.Budget, StringFormat='{0} 💰'}" 
                                    FontSize="Large" 
                                    TextColor="#90EE90" 
                                    FontAttributes="Bold"/>
@@ -40,16 +45,22 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <Label Text="Leigazolt Játékosok Áttekintése" 
+            <Grid ColumnDefinitions="*,*">
+                <Label Grid.Column="0" Text="Leigazolt Játékosok Áttekintése" 
                    FontSize="Large" 
                    FontAttributes="Bold" 
-                   Margin="0, 10, 0, 0"/>
+                   />
 
-            <CollectionView ItemsSource="{Binding RosterPlayers}">
+
+                <Button Grid.Column="1" BackgroundColor="Black"   WidthRequest="130" Text="Sell Player" TextColor="Red" HorizontalOptions="End" Command="{Binding DeletePlayerCommand}"/>
+
+            </Grid>
+
+            <CollectionView ItemsSource="{Binding PlayersInTeam}" SelectionMode="Single" SelectedItem="{Binding SelectedPlayer}">       
                 <CollectionView.EmptyView>
                     <VerticalStackLayout Padding="20" HorizontalOptions="Center">
                         <Label Text="Nincs még összeállított csapatod. 😢" FontAttributes="Italic" TextColor="Gray"/>
-                        <Label Text="Irány a Market a leigazolásokhoz!" TextColor="#1E90FF" HorizontalOptions="Center"/>
+                        <Button Text="Irány a Market a leigazolásokhoz!" TextColor="#1E90FF" HorizontalOptions="Center" BackgroundColor="Transparent" Command="{Binding NavigateToMarketCommand}"/>
                     </VerticalStackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemsLayout>
@@ -58,8 +69,9 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:Player">
 
-                        <Frame Padding="10" CornerRadius="8" HasShadow="True">
-                            <Grid ColumnDefinitions="60, *, 90, 90">
+                        <Border Opacity="10" Stroke="Black" >
+                            
+                            <Grid ColumnDefinitions="60, *, 90" Padding="10">
 
                                 <Label Grid.Column="0" 
                                        Text="{Binding Role}" 
@@ -82,15 +94,15 @@
                                            TextColor="#B22222"/>
                                 </VerticalStackLayout>
 
-                                <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center">
+                                <!--<VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center">
                                     <Label Text="Heti Pont" FontSize="Small" TextColor="Gray"/>
                                     <Label Text="{Binding CurrentPoints}" 
                                            FontSize="Medium" 
                                            FontAttributes="Bold"
                                            TextColor="#FF8C00"/>
-                                </VerticalStackLayout>
+                                </VerticalStackLayout>-->
                             </Grid>
-                        </Frame>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

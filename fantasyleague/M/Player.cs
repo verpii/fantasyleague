@@ -11,10 +11,10 @@ namespace fantasyleague.M
     public enum PlayerRole
     {
         Top,
-        Jungle,
+        JG,
         Mid,
         Adc,
-        Support
+        Sup
 
     }
     
@@ -45,9 +45,10 @@ namespace fantasyleague.M
         [ObservableProperty]
         string imageurl;
 
-        [ObservableProperty]
-        int currentPoints;
 
+
+       // [ObservableProperty]
+       // int age;
 
     }
 }

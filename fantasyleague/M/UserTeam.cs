@@ -27,18 +27,25 @@ namespace fantasyleague.M
         [ObservableProperty]
         string teamName;
 
+       // [ObservableProperty]
+       // int playerid;
+
         [ObservableProperty]
-        int playerid;
+        string kepUrl;
 
 
+        [ObservableProperty]
+        string rosterString;
 
-        //[ObservableProperty]
-        //string rosterJson = "[]";
+
+        [ObservableProperty]
+        int currentPoints;
+
 
         //public List<Player> Roster
         //{
         //    get => JsonSerializer.Deserialize<List<Player>>(RosterJson) ?? new List<Player>();
-        //    set => RosterJson = JsonSerializer.Serialize(value);    
+        //    set => RosterJson = JsonSerializer.Serialize(value);
         //}
 
 

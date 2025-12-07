@@ -20,6 +20,7 @@ namespace fantasyleague
             builder.Services.AddSingleton<MyTeamPage>();
             builder.Services.AddTransient<Market>();
             builder.Services.AddTransient<MarketViewModel>();
+            builder.Services.AddTransient<MyTeamPageViewModel>();
 
 
 

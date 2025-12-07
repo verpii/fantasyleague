@@ -6,7 +6,7 @@
              xmlns:v="clr-namespace:fantasyleague.V"
              xmlns:M="clr-namespace:fantasyleague.M"
              x:DataType="vm:MarketViewModel"
-             Title="Market">
+            >
 
 
 
@@ -34,14 +34,15 @@
             <Frame Grid.Row="2" Margin="15,0,15,10" Padding="10">
 
                 <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
-                    <Picker TextColor="Black"
+                    <Picker TextColor="Black" FontAttributes="Bold"
                             Grid.Column="0" 
                             Title="Select Role"
                             ItemsSource="{Binding Roles}"
                             SelectedItem="{Binding SelectedRole}"
+                            HorizontalOptions="Start"
                             
                             BackgroundColor="White"
-                            WidthRequest="400"/>
+                            WidthRequest="200"/>
                     
 
                     <Button Grid.Column="1"
@@ -58,20 +59,20 @@
             <CollectionView ItemsSource="{Binding FilteredPlayers}"  SelectionMode="Single" SelectedItem="{Binding SelectedPlayer}" Grid.Row="3" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="M:Player">
-                    <Grid ColumnDefinitions="*,2*,*">
-                        <HorizontalStackLayout Grid.Column="0" Spacing="10">
-                            <Label Text="{Binding Ign}" 
+                    <Grid ColumnDefinitions="*,*,*,*">
+                        <HorizontalStackLayout Grid.Column="0" Margin="30" Spacing="10">
+                            <Label Text="{Binding Ign}" VerticalOptions="Center"
                                    FontSize="18" 
                                    FontAttributes="Bold"/>
 
-                            <Label Text="{Binding Team}" FontSize="14" TextColor="Gray"/>
+                            <Label Text="{Binding Team}" FontSize="14" TextColor="Gray" VerticalOptions="Center"/>
 
                         </HorizontalStackLayout>
 
 
-                        <VerticalStackLayout Grid.Column="1" 
+                        <VerticalStackLayout Grid.Column="1"  
                                                  Spacing="5"
-                                                 Margin="0,10">
+                                                 Margin="10,10">
                             <Label Text="{Binding IrlName}" 
                                        FontSize="14"
                                        TextColor="DarkGray"/>
@@ -81,9 +82,16 @@
                                            FontAttributes="Bold"
                                            TextColor="#1565C0"/>
                             
+                            
                         </VerticalStackLayout>
 
-                        <Button Grid.Column="2" Text="Buy"></Button>
+                        <Label Grid.Column="2" Text="{Binding Buyingprice}"  VerticalOptions="Center" />
+
+                        <Button Grid.Column="3" Text="Buy" TextColor="Red" BorderColor="Red" HeightRequest="60"
+                                WidthRequest="100" BackgroundColor="Black" FontAttributes="Bold" Command="{Binding Source={RelativeSource AncestorType={x:Type v:Market}}, Path=BindingContext.BuyButtonCommand}" CommandParameter="{Binding}"
+                                >
+                            
+                        </Button>
                         
                     </Grid>
                     </DataTemplate>
