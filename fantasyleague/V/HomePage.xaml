@@ -4,34 +4,167 @@
              x:Class="fantasyleague.V.HomePage"
              xmlns:loc="clr-namespace:fantasyleague.V"
              xmlns:vm="clr-namespace:fantasyleague.VM"
-             Title="HomePage">
+             Title="Main">
 
-    <ContentPage.BindingContext>
-        <vm:HomeViewModel/>
-    </ContentPage.BindingContext>
-    <VerticalStackLayout Spacing="20" Padding="30" HorizontalOptions="Center" VerticalOptions="Center">
+  
+        <VerticalStackLayout Spacing="20" Padding="30" >
 
-        
-        
-        <Button Text="My Team" 
-                Command="{Binding NavigateToMyTeamCommand}"
+
+        <Grid ColumnDefinitions="*,*,*">
+
+            <Grid Grid.Column="0" 
+          RowDefinitions="Auto,Auto,Auto"
+          RowSpacing="15"
+          HorizontalOptions="Center"
+          VerticalOptions="Start"
+          Margin="20,30,20,0">
+
+                <Border   StrokeShape="RoundRectangle 100"  WidthRequest="200" HeightRequest="200" >
+
+
+                    <Image Source="{Binding Userteam.KepUrl}"  Aspect="AspectFill" />
+
+                </Border>
+
+
+
+
+                <Button Grid.Row="1"
+                Text="📸 Take New Photo"
+                Command="{Binding TakePhotoCommand}"
                 BackgroundColor="#2E7D32"
                 TextColor="White"
-                FontSize="16"
-                HeightRequest="50"
+                FontSize="14"
+                HeightRequest="40"
                 WidthRequest="200"
-                CornerRadius="10"/>
+                CornerRadius="20"
+                FontAttributes="Bold"/>
 
-        <Button Text="Player Market" 
-                Command="{Binding NavigateToMarketCommand}"
-                BackgroundColor="#1565C0"
+                <Button Grid.Row="2"
+                Text="👥My Team"
+                Command="{Binding NavigateToMyTeamCommand}"
+                BackgroundColor="Black"
                 TextColor="White"
                 FontSize="16"
                 HeightRequest="50"
                 WidthRequest="200"
-                CornerRadius="10"/>
+                CornerRadius="25"
+                FontAttributes="Bold"/>
+            </Grid>
 
-        
+            <Frame Grid.Column="1" 
+           Margin="10"
+           Padding="10"
+           CornerRadius="15"
+           BackgroundColor="#F5F5F5"
+           BorderColor="#E0E0E0">
+                <Grid RowDefinitions="Auto,*">
+                    <Frame Grid.Row="0"
+                   BackgroundColor="Black"
+                   CornerRadius="10"
+                   Padding="10"
+                   Margin="0,0,0,10">
+                        <Label Text="📅 Match Schedule"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"/>
+                    </Frame>
+
+                    <CollectionView Grid.Row="1"
+                            ItemsSource="{Binding AllMatches}"
+                            VerticalScrollBarVisibility="Always"
+                            HeightRequest="400">
+                        <CollectionView.Header>
+                            <Label Text="Upcoming Matches:"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           TextColor="Purple"
+                           Margin="0,0,0,10"/>
+                        </CollectionView.Header>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="White"
+                               CornerRadius="10"
+                               Padding="10"
+                               Margin="5,0,0,8"
+                               HasShadow="True">
+                                    <Grid ColumnDefinitions="*,Auto"
+                                  RowDefinitions="Auto,20">
+
+                                        <Label Grid.Column="0"
+                                       Grid.Row="0"
+                                       Text="{Binding Teams}"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="#1A237E"/>
+
+                                        <Label Grid.Column="0"
+                                       Grid.Row="1"
+                                       Text="{Binding League}"
+                                       FontSize="11"
+                                       TextColor="#666666"
+                                       Margin="0,5,0,0"/>
+
+                                        <Label Grid.Column="1"
+                                       Grid.Row="0"
+                                       Grid.RowSpan="2"
+                                       Text="{Binding MatchDate, StringFormat='{0:MMM dd}'}"
+                                       FontSize="13"
+                                       FontAttributes="Bold"
+                                       TextColor="Purple"
+                                       VerticalOptions="Center"/>
+
+                                        <Label Grid.Column="1" 
+                                       Grid.Row="1"
+                                       Grid.RowSpan="2"
+                                       Text="{Binding MatchDate, StringFormat='{0:HH:mm}'}"
+                                       FontSize="12"
+                                       TextColor="#666666"
+                                       VerticalOptions="Center"/>
+
+                                        <Frame Grid.Column="2"
+                                       Grid.Row="0"
+                                       BackgroundColor="Red"
+                                       CornerRadius="5"
+                                       Padding="3,1"
+                                       IsVisible="{Binding IsLive}">
+                                            <Label Text="LIVE"
+                                           FontSize="9"
+                                           TextColor="White"
+                                           FontAttributes="Bold"/>
+                                        </Frame>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                        <CollectionView.Footer>
+                            <Label Text="👆 Scroll for more matches"
+                           FontSize="11"
+                           TextColor="#999999"
+                           HorizontalOptions="Center"
+                           Margin="0,10,0,0"/>
+                        </CollectionView.Footer>
+                    </CollectionView>
+                </Grid>
+            </Frame>
+
+            <Button Grid.Column="2"  
+            Text="Player Market" 
+            Command="{Binding NavigateToMarketCommand}"
+            BackgroundColor="Black"
+            TextColor="White"
+            FontSize="16"
+            HeightRequest="50"
+            WidthRequest="200"
+            CornerRadius="10"/>
+        </Grid>
+
+
+
+
 
 
     </VerticalStackLayout>

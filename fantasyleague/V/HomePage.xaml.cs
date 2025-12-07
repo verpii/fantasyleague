@@ -1,12 +1,19 @@
 using CommunityToolkit.Mvvm.Input;
+using fantasyleague.VM;
 
 namespace fantasyleague.V
 {
     public partial class HomePage : ContentPage
     {
-        public HomePage()
+
+        HomeViewModel viewModel;
+
+
+        public HomePage(HomeViewModel vm)
         {
+            viewModel = vm;
             InitializeComponent();
+            BindingContext = viewModel; 
            
         }
 

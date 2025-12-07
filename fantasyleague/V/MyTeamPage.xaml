@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:fantasyleague.VM"
              xmlns:m="clr-namespace:fantasyleague.M"
              x:DataType="vm:MyTeamPageViewModel"
-             Title="Csapatösszeállítás (Roster)"
+             Title="Roster"
              Loaded="MainPage_OnLoaded">
 
    
@@ -17,17 +17,17 @@
        
         <VerticalStackLayout Spacing="15" Padding="20">
 
-            <Frame BackgroundColor="#1E90FF" Padding="15" CornerRadius="10" HasShadow="True">
+            <Frame BackgroundColor="Black" Padding="15" CornerRadius="10" HasShadow="True">
                 <VerticalStackLayout>
                     <Label Text="{Binding RefreshUserteam.TeamName}" 
-                           FontSize="Title" 
+                           FontSize="40" 
                            TextColor="White" 
                            FontAttributes="Bold" 
-                           HorizontalOptions="Center" />
+                           HorizontalOptions="Center"  />
 
                     <Grid ColumnDefinitions="*, *" Margin="0, 10, 0, 0">
                         <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
-                            <Label Text="Heti Pontszám:" TextColor="White" FontAttributes="Bold"/>
+                            <Label Text="Points Earned:" TextColor="Beige" FontAttributes="Bold"/>
                             <Label Text="{Binding RefreshUserteam.CurrentPoints}" 
                                    FontSize="Large" 
                                    TextColor="#FFD700" 
@@ -35,8 +35,8 @@
                         </VerticalStackLayout>
 
                         <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
-                            <Label Text="Költségvetés:" TextColor="White" FontAttributes="Bold"/>
-                            <Label Text="{Binding RefreshUserteam.Budget, StringFormat='{0} 💰'}" 
+                            <Label Text="Coins left:" TextColor="Beige" FontAttributes="Bold"/>
+                            <Label Text="{Binding RefreshUserteam.Budget, StringFormat='{0}'}" 
                                    FontSize="Large" 
                                    TextColor="#90EE90" 
                                    FontAttributes="Bold"/>
@@ -46,7 +46,7 @@
             </Frame>
 
             <Grid ColumnDefinitions="*,*">
-                <Label Grid.Column="0" Text="Leigazolt Játékosok Áttekintése" 
+                <Label Grid.Column="0" Text="Signed Players:" 
                    FontSize="Large" 
                    FontAttributes="Bold" 
                    />
@@ -59,8 +59,8 @@
             <CollectionView ItemsSource="{Binding PlayersInTeam}" SelectionMode="Single" SelectedItem="{Binding SelectedPlayer}">       
                 <CollectionView.EmptyView>
                     <VerticalStackLayout Padding="20" HorizontalOptions="Center">
-                        <Label Text="Nincs még összeállított csapatod. 😢" FontAttributes="Italic" TextColor="Gray"/>
-                        <Button Text="Irány a Market a leigazolásokhoz!" TextColor="#1E90FF" HorizontalOptions="Center" BackgroundColor="Transparent" Command="{Binding NavigateToMarketCommand}"/>
+                        <Label Text="You have not put your dream tream together. WHAT ARE U WAITING FOR?" FontAttributes="Italic" TextColor="Gray"/>
+                       
                     </VerticalStackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemsLayout>
@@ -87,7 +87,7 @@
                                 </VerticalStackLayout>
 
                                 <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Label Text="Eladási Ár" FontSize="Small" TextColor="Gray"/>
+                                    <Label Text="Selling Price" FontSize="Small" TextColor="Gray"/>
                                     <Label Text="{Binding Sellingprice, StringFormat='{0} 💰'}" 
                                            FontSize="Medium" 
                                            FontAttributes="Bold" 
@@ -106,6 +106,18 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+    
+
+            <Grid ColumnDefinitions="*,*,*">
+
+
+                <Button Text="Click me, Lets get you to the market!" TextColor="Purple"  FontAttributes="Bold" HorizontalOptions="Center"  Grid.Column="1" BackgroundColor="Transparent" Command="{Binding NavigateToMarketCommand}"/>
+
+                <Button Command="{Binding ShareCommand}" Text="Share your team" TextColor="Purple"  HorizontalOptions="End" Grid.Column="2" Background="Transparent" FontAttributes="Bold"  FontSize="20    "  />
+
+            </Grid>
+            
+            
 
         </VerticalStackLayout>
     </ScrollView>

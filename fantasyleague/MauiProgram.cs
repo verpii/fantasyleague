@@ -18,6 +18,7 @@ namespace fantasyleague
             builder.Services.AddSingleton<IDbService, DbService>();
             builder.Services.AddSingleton<HomePage>();
             builder.Services.AddSingleton<MyTeamPage>();
+            builder.Services.AddSingleton<HomeViewModel>();
             builder.Services.AddTransient<Market>();
             builder.Services.AddTransient<MarketViewModel>();
             builder.Services.AddTransient<MyTeamPageViewModel>();

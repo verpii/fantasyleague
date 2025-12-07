@@ -75,6 +75,35 @@ namespace fantasyleague.VM
 
 
         [RelayCommand]
+        public async Task ShareAsync()
+        {
+
+            if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+            {
+                string content = "";
+
+                foreach (var item in PlayersInTeam)
+                {
+                    content += $"{item.Ign} ({item.Role}); ";
+
+                }
+                
+
+                await Share.Default.RequestAsync(new ShareTextRequest()
+                {
+                    Title = "They will Smash this Season",
+                    Text = content
+                });
+            }
+        }
+
+
+     
+
+
+
+
+        [RelayCommand]
         public async Task DeletePlayer()
         {
             if(SelectedPlayer != null)

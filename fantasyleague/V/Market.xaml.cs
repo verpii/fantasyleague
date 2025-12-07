@@ -14,7 +14,7 @@ public partial class Market : ContentPage
 
         WeakReferenceMessenger.Default.Register<string>(this, async (recipient, msg) =>
         {
-            await DisplayAlert("Warning", msg, "OK");
+            await DisplayAlert("Alert", msg, "OK");
         });
 
     }

@@ -183,7 +183,7 @@ namespace fantasyleague.VM
 
                 OnPropertyChanged(nameof(UserTeam));
 
-                WeakReferenceMessenger.Default.Send($"{newPlayer.Ign} sikeresen leigazolva!");
+                WeakReferenceMessenger.Default.Send($"Great Sign! {newPlayer.Ign} is ready to rumble!");
             }
             return;
 
